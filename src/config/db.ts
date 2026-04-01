@@ -4,7 +4,7 @@ const connectTodabase =async()=>{
     try {
         await mongoose.connect( envConfig.databaseString as string)
         mongoose.connection.on("connected",()=>{
-            console.log("dabatabase connedted successfully.")
+            console.log("dabatabase connedted successfully done by sagar saru .")
         })
     } catch (error) {
         console.log("Failed to connect db.")
@@ -13,3 +13,4 @@ const connectTodabase =async()=>{
     }
 }
 export  default connectTodabase
+
