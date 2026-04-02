@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import envConfig from './config';
-const connectTodabase =async()=>{
+const connectTodatase =async()=>{
     try {
         await mongoose.connect( envConfig.databaseString as string)
         mongoose.connection.on("connected",()=>{
-            console.log("dabatabase connedted successfully done by sagar saru .")
+            console.log("dabatabase connedted successfully.")
         })
     } catch (error) {
         console.log("Failed to connect db.")
@@ -12,5 +12,5 @@ const connectTodabase =async()=>{
         
     }
 }
-export  default connectTodabase
+export  default connectTodatase
 
