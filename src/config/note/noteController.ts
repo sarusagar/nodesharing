@@ -3,6 +3,7 @@ import noteModel from "./noteModel";
 import envConfig from "../config";
 import createHttpError from "http-errors";
 
+
 const createNote =async(req: Request,res:Response,next:NextFunction)=>{
     try {
         const file =(req as any).file ? `${envConfig.backendurl}/${(req as any).file.filename}` :'https://www.google.com/imgres?q=hahha&imgurl=https%3A%2F%2Fmedia.tenor.com%2F7qk5NdELmVoAAAAe%2Fhahha-laugh.png&imgrefurl=https%3A%2F%2Ftenor.com%2Fview%2Fhahha-laugh-giggle-happy-gif-16039624&docid=4HijO_Kxq_QbBM&tbnid=FTjIiC7W2YEr5M&vet=12ahUKEwj6tbvypc-TAxXG3jgGHWZgNi8QnPAOegQIIhAB..i&w=640&h=518&hcb=2&ved=2ahUKEwj6tbvypc-TAxXG3jgGHWZgNi8QnPAOegQIIhAB'
@@ -28,4 +29,42 @@ const createNote =async(req: Request,res:Response,next:NextFunction)=>{
         return next(createHttpError(500,'Error while creating.'))
     }
 }
+ const listNotes =async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const notes= await noteModel.find()
+        res.status(200).json({
+            message:"Notes patched",
+            data:notes
+        })
+    } catch (error) {
+       return next(createHttpError(500,"error while fatching...")) 
+    }
+ }
+
+ const listNote =async(req:Request,res:Response,next:NextFunction)=>{
+        try {
+            const {id} =req.params
+            const note= await noteModel.findById(id)
+            res.status(200).json({
+                message:"Notes patched",
+                data:note
+            })
+        } catch (error) {
+        return next(createHttpError(500,"error while fatching...")) 
+        }
+ }
+
+const deleteNote =async(req:Request,res:Response,next:NextFunction)=>{
+        try {
+            const {id} =req.params
+            await noteModel.findByIdAndDelete(id)
+            res.status(200).json({
+                message:"Notes patched",
+            })
+        } catch (error) {
+        return next(createHttpError(500,"error while fatching...")) 
+        }
+ }
+
+
 export {createNote}
