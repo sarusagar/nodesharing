@@ -8,5 +8,6 @@ const envConfig ={
     databaseString : process.env.MONGODB_URL,
     backendurl : process.env.BACKEND_URL,
     environment :process.env.NODE_ENV
+    frontendUrl:process.env.FORNTEND_URL
 }
 export default envConfig
