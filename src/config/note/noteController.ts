@@ -45,6 +45,9 @@ const createNote =async(req: Request,res:Response,next:NextFunction)=>{
         try {
             const {id} =req.params
             const note= await noteModel.findById(id)
+            if(!note){
+                return next(createHttpError(404, "Note not found with that id!"))
+            }
             res.status(200).json({
                 message:"Notes patched",
                 data:note
@@ -59,7 +62,7 @@ const deleteNote =async(req:Request,res:Response,next:NextFunction)=>{
             const {id} =req.params
             await noteModel.findByIdAndDelete(id)
             res.status(200).json({
-                message:"Notes patched",
+                message:"Notes Deleted.",
             })
         } catch (error) {
         return next(createHttpError(500,"error while fatching...")) 
@@ -67,4 +70,4 @@ const deleteNote =async(req:Request,res:Response,next:NextFunction)=>{
  }
 
 
-export {createNote}
+export {createNote,listNote,listNotes,deleteNote}
